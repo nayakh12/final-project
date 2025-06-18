@@ -1,0 +1,133 @@
+import sqlite3
+# connect to the sqlite database
+
+conn = sqlite3.connect('library.db')
+c = conn.cursor()
+
+# enable foreign key constraints
+c.execute("PRAGMA foreign_keys = ON")
+
+# create the genres table
+c.execute(""" 
+        CREATE TABLE IF NOT EXISTS genres(
+                genre_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                genre_name TEXT NOT NULL
+        )
+ """)
+# create the publishers table
+
+c.execute("""
+          CREATE TABLE IF NOT EXISTS publishers(
+                  publisher_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  name TEXT NOT NULL
+          )
+""")
+
+
+# create the authors table
+c.execute(""" 
+          CREATE TABLE IF NOT EXISTS authors(
+            author_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL      
+          )
+""")
+# create the books table
+
+c.execute("""
+          CREATE TABLE IF NOT EXISTS books(
+            book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            isbn TEXT NOT NULL,
+            edition INTEGER NOT NULL,
+            copies_total INTEGER NOT NULL,
+            copies_available INTEGER NOT NULL,
+            shelf_number INTEGER NOT NULL,
+            status TEXT NOT NULL,
+            published_year INTEGER NOT NULL,
+            author_id INTEGER NOT NULL,
+            publisher_id INTEGER NOT NULL,
+            genre_id INTEGER NOT NULL,
+            FOREIGN KEY (author_id) REFERENCES authors(author_id),
+            FOREIGN KEY (publisher_id) REFERENCES publishers(publisher_id),
+            FOREIGN KEY (genre_id) REFERENCES genres(genre_id)
+                        
+    )
+""")
+
+
+# Create the roles table
+c.execute("""
+          CREATE TABLE IF NOT EXISTS roles(
+                  role_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  role_name TEXT UNIQUE NOT NULL
+          )
+""")
+
+# create the users table
+c.execute(""" 
+          CREATE TABLE IF NOT EXISTS users(
+                  user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        username TEXT NOT NULL,
+                        password TEXT NOT NULL,
+                        first_name TEXT NOT NULL,
+                        last_name TEXT NOT NULL,
+                        email_id TEXT NOT NULL,
+                        phone_number TEXT NOT NULL,
+                        address TEXT NOT NULL,
+                        is_active BOOLEAN NOT NULL DEFAULT 0,
+                        date_activated DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        role_id INTEGER NOT NULL,
+                        FOREIGN KEY (role_id) REFERENCES roles(role_id)
+          )
+""")
+
+# Create the Users_record table
+
+c.execute("""
+          CREATE TABLE IF NOT EXISTS  users_record(
+                  users_record_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  issue_date DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  return_date DATE NOT NULL,
+                  due_date DATE NOT NULL,
+                  is_returned BOOLEAN NOT NULL DEFAULT 0,   --- 0 = Not Returned, 1 = Returned
+                  book_id INTEGER NOT NULL,
+                  user_id INTEGER NOT NULL,
+                  FOREIGN KEY (book_id) REFERENCES books(book_id),
+                  FOREIGN KEY (user_id) REFERENCES users(user_id)
+          )
+""") 
+
+# Create the reservation table
+
+c.execute("""
+          CREATE  TABLE IF NOT EXISTS reserve_a_book(
+                  reserve_a_book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  reservation_date DATE NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+                  expiration_date DATE NOT NULL, --- set based on library policy
+                  reservation_status TEXT NOT NULL, --- Pending, Active, Expired
+                  user_id INTEGER NOT NULL,
+                  book_id INTEGER NOT NULL,
+                  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ,
+                  FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE 
+                  
+          )
+""")
+# Remove the role table if it exists
+c.execute("DROP TABLE IF EXISTS role")
+
+ # Insert roles if not already inserted
+roles = [('admin',), ('member',)]  # Tuple format for insertion
+c.executemany('INSERT OR IGNORE INTO roles (role_name) VALUES (?)', roles)
+
+c.execute("UPDATE roles SET role_id = 2 WHERE role_name = 'member'")
+
+## rename the users table
+
+
+# commit and close the connection
+conn.commit()
+conn.close()
+
+    
+    
+    

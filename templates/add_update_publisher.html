@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>{% if publisher %}Update{% else %}Add{% endif %} Publisher</h1>
+
+<form action="{% if publisher %}/update_publisher/{{ publisher.publisher_id }}{% else %}/add_publisher{% endif %}" method="post" class="mb-4">
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Publisher Name:</label>
+        <input type="text" id="name" name="name" class="form-control" value="{{ publisher[1] if publisher else '' }}" required>
+    </div>
+
+    <div class="mb-3">
+        {% if publisher %}
+            <button type="submit" id="updateButton" class="btn btn-primary">Update</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Add Publisher</button>
+        {% endif %}
+    </div>
+</form>
+
+<hr> <!-- Separator -->
+
+<!-- List of Publishers -->
+<h2>Publishers List</h2>
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Publisher Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if publishers %}
+            {% for publisher in publishers %}
+            <tr>
+                <td>{{ publisher['publisher_id'] }}</td>
+                <td>{{ publisher['name'] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="2" class="text-muted text-center">No publishers available</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

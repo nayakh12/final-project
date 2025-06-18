@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if author %}Update Author{% else %}Add Author{% endif %}</h2>
+
+    <!-- Add/Update Author Form -->
+    <form action="{% if author %}/update_author/{{ author['author_id'] }}{% else %}/add_author{% endif %}" method="post">
+        <div class="mb-3">
+            <input type="text" id="name" name="name" class="form-control" value="{{ author['name'] if author else '' }}" required>
+        </div>
+        <button type="submit" class="btn btn-success">{% if author %}Update Author{% else %}Add Author{% endif %}</button>
+    </form>
+
+    <hr> <!-- Separator -->
+
+    <!-- List of Authors -->
+    <h2>Authors List</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Author Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if authors %}
+                {% for author in authors %}
+                <tr>
+                    <td>{{ author['author_id'] }}</td>
+                    <td>{{ author['name'] }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="2" class="text-muted text-center">No authors available</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

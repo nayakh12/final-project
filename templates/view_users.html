@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Users</h2>
+
+    <!-- Search Form -->
+    <form method="GET" action="/view_users" class="mb-3">
+        <div class="d-flex justify-content-end">
+            <!-- Search By Dropdown -->
+            <select class="form-select w-auto" id="search_by" name="search_by" required>
+                <option value="" {% if request.args.get('search_by') == '' %}selected{% endif %}>Select</option>
+                <option value="username" {% if request.args.get('search_by') == 'username' %}selected{% endif %}>Username</option>
+                <option value="pa_pss_number" {% if request.args.get('search_by') == 'pa_pss_number' %}selected{% endif %}>PA/PSS Number</option>
+                <option value="status" {% if request.args.get('search_by') == 'status' %}selected{% endif %}>Status</option>
+            </select>
+            <input type="text" class="form-control w-25 ms-2" id="search" name="search" placeholder="Enter search term" value="{{ request.args.get('search', '') }}">
+            <button type="submit" class="btn btn-primary ms-2">Search</button>
+        </div>
+    </form>
+
+    <!-- Users Table -->
+    <table class="table table-striped table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Army Number</th>
+                <th>Status</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Date Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in view_users %}
+            <tr>
+                <td>{{ user['user_id'] }}</td>
+                <td>{{ user['username'] }}</td>
+                <td>{{ user['pa_pss_number'] }}</td>
+                <td>{{ 'Active' if user['is_active'] == 1 else 'Inactive' }}</td>
+                <td>{{ user['email_id'] }}</td>
+                <td>{{ user['phone_number'] }}</td>
+                <td>{{ user['address'] }}</td>
+                <td>{{ user['date_activated'] }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <a href="{{ url_for('edit_user', user_id=user['user_id']) }}" class="btn btn-warning">Edit</a>
+
+                    <!-- Delete Button -->
+                    <form method="POST" action="{{ url_for('soft_delete_user', user_id=user['user_id']) }}" class="d-inline">
+                        <button type="submit" class="btn btn-danger" onclick="return confirmDelete();">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Confirmation Script -->
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this user?");
+    }
+</script>
+
+{% endblock %}

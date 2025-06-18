@@ -1,0 +1,27 @@
+Flask
+Flask-SQLite3
+
+
+
+
+Set Up Flask: Create a basic Flask application.
+Database Connection: Integrate your SQLite database with Flask.
+Create Routes: Define routes for different functionalities (e.g., viewing books, adding users).
+Templates: Set up HTML templates for your web pages.
+Forms: Create forms for user input (e.g., adding books, registering users).
+
+
+project/
+├── app.py  # Main application script
+|__helper.py # a helper file to be imported in app.py
+├── library_db.py   # Database configuration and helper functions
+|_library.db
+├── templates/  # HTML templates 
+└── static/  # Static files
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Register New User</h2>
+    <form method="POST" action="/register_user">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="pa_pss_number" class="form-label">PA/PSS Number;</label>
+            <input type="text" class="form-control" id="pa_pss_number" name="pa_pss_number" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="email_id" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email_id" name="email_id" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" id="address" name="address"  required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register User</button>
+    </form>
+</div>
+{% endblock %}

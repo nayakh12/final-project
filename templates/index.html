@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    /* Full page black background */
+    body {
+        background-color: black;
+        margin: 0;
+        padding: 0;
+    }
+    .welcome-section {
+        height: 15vh; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .welcome-text {
+    font-size: 2.7rem; /* Increased size */
+    font-weight: bold; /* Optional for emphasis */
+    color: #43f00e;
+}
+.quotes-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    }
+    .quote {
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        font-style: italic;
+        font-size: 1.4rem;
+        max-width: 80%; /* Ensures the quotes don't overflow */
+        margin: 10px auto;  /* Centers them properly */
+    }
+    .quote-red { background-color: #ff6347; }
+    .quote-green { background-color: #32cd32; }
+    .quote-blue { background-color: #1e90ff; }
+    .about-section {
+        background-color: #e0e0e0;
+        padding: 40px 20px;
+    }
+    .about-text {
+        text-align: left;
+        margin: 0 auto 0 0; /* Move section left */
+        max-width: 850px;
+        font-size: 1.2rem;
+        color: #333;
+    }
+        /* News Ticker */
+        .news-ticker {
+        background-color: #f6f5f3;
+        color: rgb(230, 44, 44);
+        font-size: 1.2rem;
+        padding: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+}
+
+    .ticker-wrap {
+        display: flex;
+        width: max-content;
+        animation: ticker 80s linear infinite;
+
+    }
+
+    .ticker-wrap span {
+        padding-right: 50px; /* Adjust space between repeats */
+    }
+
+    @keyframes ticker {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+</style>
+
+<!-- Welcome Section -->
+
+    <h2 class="py-3 text-center welcome-text">
+        Welcome to the SI&T Library Management System
+    </h2>
+
+
+<!-- News Ticker -->
+<div class="news-ticker">
+    <div class="ticker-wrap">
+        {% for _ in range(20) %}  
+            <span>Library Timings: Monday - Friday: 8:00 AM - 6:00 PM | Saturday: 9:00 AM - 4:00 PM | Sunday: OFF &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Quotes Section -->
+<div class="py-5 quotes-section">
+    <div class="container text-center">
+        <blockquote class="blockquote quote quote-red">
+            <p>"A room without books is like a body without a soul." – Marcus Tullius Cicero</p>
+        </blockquote>
+        <blockquote class="blockquote mt-4 quote quote-green">
+            <p>"The only thing that you absolutely have to know, is the location of the library." – Albert Einstein</p>
+        </blockquote>
+        <blockquote class="blockquote mt-4 quote quote-blue">
+            <p>"Books are a uniquely portable magic." – Stephen King</p>
+        </blockquote>
+    </div>
+</div>
+
+<!-- About Us Section -->
+<div class="py-5  about-section">
+    <div class="container" style="max-width: 850px; padding-left: 0;">
+        <h2 class="fw-bold" style="color: #333;">About Us</h2>
+        <p class="lead about-text">
+            Our Library Management System (LMS) is designed to simplify the process of managing a library efficiently.
+            From user management to book records, we provide a seamless experience for administrators and users alike. 
+            Our goal is to make the library environment more organized, accessible, and user-friendly for everyone.
+        </p>
+        <p class="lead about-text">
+            With features like adding, editing, and removing books, users, and authors, along with easy record tracking, we aim to improve overall library operations. Our intuitive system is built to save time, reduce errors, and enhance the user experience.
+        </p>
+    </div>
+</div>
+{% endblock %}

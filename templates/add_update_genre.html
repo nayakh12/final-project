@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>{% if genre is defined and genre %}Update{% else %}Add{% endif %} Genre</h1>
+
+<form action="{% if genre is defined and genre %}/update_genre/{{ genre[0] }}{% else %}/add_genre{% endif %}" method="post">
+    <label for="genre_name">Genre Name:</label>
+    <input type="text" id="genre_name" name="genre_name" value="{{ genre[1] if genre else '' }}" required>
+
+    <br> <!-- Line break to move button below input -->
+    
+    <button type="submit" 
+        {% if genre is defined and genre %} 
+            class="btn btn-primary"  <!-- Blue button for update -->
+        {% else %} 
+            class="btn btn-success"  <!-- Green button for add -->
+        {% endif %}
+        {% if genre is defined and genre %} Update {% else %} Add {% endif %} Genre
+    </button>
+
+    {% if genre is defined and genre %}
+        <input type="hidden" name="genre_id" value="{{ genre[0] }}">
+    {% endif %}
+</form>
+
+<hr>
+
+<!-- List of Genres -->
+<h2>Genres List</h2>
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Genre Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if genres %}
+            {% for g in genres %}
+            <tr>
+                <td>{{ g['genre_id'] }}</td>
+                <td>{{ g['genre_name'] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="2" class="text-muted text-center">No genres available</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{%  extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="my-4">Admin Dashboard</h1>
+    <div class="row justify-content-center">
+        <!-- Top Row (Today's Date) -->
+        <div class="col-md-10">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text display-4">{{ data.date_today }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+        <!-- Top Row (2 Cards) -->
+        <div class="col-md-5">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Books</h5>
+                    <p class="card-text display-4">{{ data.total_books }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Books Issued</h5>
+                    <p class="card-text display-4">{{ data.books_issued }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Middle Row (2 Cards) -->
+        <div class="col-md-5">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Books Returned</h5>
+                    <p class="card-text display-4">{{ data.books_returned }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Members</h5>
+                    <p class="card-text display-4">{{ data.members }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <!-- Options Section -->
+  <div class="my-4">
+    <!-- Options Section -->
+<div class="my-4">
+    <h2>Quick Actions</h2>
+    <div class="row">
+        <div class="col-md-3 mb-2">
+            <a href="/view_users" class="btn btn-outline-primary w-100">View All Members</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/books" class="btn btn-outline-primary w-100">View All Books</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/authors" class="btn btn-outline-primary w-100">View Authors</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/genres" class="btn btn-outline-primary w-100">View Genres</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/publishers" class="btn btn-outline-primary w-100">View Publishers</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/add_book" class="btn btn-outline-success w-100">Add Book</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/add_genre" class="btn btn-outline-success w-100">Add Genre</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/add_publisher" class="btn btn-outline-success w-100">Add Publisher</a>
+        </div>
+        <div class="col-md-3 mb-2">
+            <a href="/add_author" class="btn btn-outline-success w-100">Add Author</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

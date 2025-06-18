@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Register Admin</h2>
+<form method="POST">
+    <div class="mb-3">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="password">Confirm Password:</label>
+    <input type="password" name="confirm_password" id="password" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="email">Email:</label>
+    <input type="email" name="email_id" id="email" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="phone_number">Phone:</label>
+    <input type="text" name="phone_number" id="phone_number" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register Admin</button>
+</form>
+</div>
+{% endblock %}
