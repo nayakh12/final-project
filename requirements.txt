@@ -1,6 +1,6 @@
 Flask
-Flask-SQLite3
 gunicorn
+
 
 
 
